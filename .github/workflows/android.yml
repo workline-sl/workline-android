@@ -28,6 +28,7 @@ jobs:
 
       - name: Make the Android project
         run: |
+          node scripts/prepare-www.js
           npx cap add android
           npx capacitor-assets generate --android --iconBackgroundColor '#ffffff' --iconBackgroundColorDark '#0e1020' --splashBackgroundColor '#ffffff' --splashBackgroundColorDark '#0e1020'
           node scripts/patch-android.js

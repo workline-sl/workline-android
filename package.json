@@ -4,12 +4,22 @@
   "version": "1.0.0",
   "description": "WORKLINE Android app (Capacitor wrapper around the WORKLINE web app in www/)",
   "dependencies": {
+    "@capacitor-community/speech-recognition": "^7.0.0",
     "@capacitor/android": "^7.0.0",
     "@capacitor/app": "^7.0.0",
-    "@capacitor/core": "^7.0.0"
+    "@capacitor/browser": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/filesystem": "^7.0.0",
+    "@capacitor/haptics": "^7.0.0",
+    "@capacitor/share": "^7.0.0",
+    "@capacitor/status-bar": "^7.0.0"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
-    "@capacitor/cli": "^7.0.0"
+    "@capacitor/cli": "^7.0.0",
+    "@fontsource/noto-sans-sinhala": "^5.0.0",
+    "@fontsource/noto-sans-tamil": "^5.0.0",
+    "@fontsource/sora": "^5.0.0",
+    "@supabase/supabase-js": "2.116.0"
   }
 }
