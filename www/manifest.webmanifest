@@ -1,0 +1,56 @@
+{
+  "id": "/workline/",
+  "name": "WORKLINE — Your Skill, Your Job",
+  "short_name": "WORKLINE",
+  "description": "ශ්‍රී ලංකාව පුරා දක්ෂ වෘත්තිකයන් සහ රැකියා — පළ කිරීම නොමිලේ. Skilled workers and jobs across Sri Lanka.",
+  "lang": "si",
+  "dir": "ltr",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#1e1b4b",
+  "categories": [
+    "business",
+    "productivity",
+    "lifestyle"
+  ],
+  "icons": [
+    {
+      "src": "app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "app-icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "prefer_related_applications": false,
+  "screenshots": [
+    {
+      "src": "screenshot-1.png",
+      "sizes": "1080x2338",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "වෘත්තිකයන් සහ රැකියා සොයන්න"
+    },
+    {
+      "src": "screenshot-2.png",
+      "sizes": "1080x2338",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "වෘත්තිකයාගේ ප්‍රොෆයිලය"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "appId": "io.github.workline_sl.app",
+  "appName": "WORKLINE",
+  "webDir": "www",
+  "server": { "androidScheme": "https" },
+  "android": { "backgroundColor": "#ffffff", "allowMixedContent": false, "captureInput": false, "webContentsDebuggingEnabled": false }
+}
