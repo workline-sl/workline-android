@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1026496895318",
+    "project_id": "workline-512917",
+    "storage_bucket": "workline-512917.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026496895318:android:0b0bb2b0829092389b9ef7",
+        "android_client_info": {
+          "package_name": "io.github.workline_sl.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXnUZ4ZZAP79HKYe_vTQ1X9I-JHoDj6qE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

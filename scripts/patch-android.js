@@ -4,7 +4,7 @@
 const fs = require('fs');
 const f = 'android/app/src/main/AndroidManifest.xml';
 let x = fs.readFileSync(f, 'utf8');
-const perms = ['RECORD_AUDIO', 'MODIFY_AUDIO_SETTINGS', 'ACCESS_COARSE_LOCATION', 'ACCESS_FINE_LOCATION'];
+const perms = ['RECORD_AUDIO', 'MODIFY_AUDIO_SETTINGS', 'ACCESS_COARSE_LOCATION', 'ACCESS_FINE_LOCATION', 'POST_NOTIFICATIONS'];
 const add = perms.filter(p => !x.includes('android.permission.' + p)).map(p => `    <uses-permission android:name="android.permission.${p}" />`).join('\n');
 if (add) x = x.replace('</manifest>', add + '\n</manifest>');
 if (!x.includes('android.speech.RecognitionService'))
@@ -18,5 +18,13 @@ if (!x.includes('android:scheme="workline-app"'))
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="workline-app" android:host="login" />
             </intent-filter>`);
+// phone notifications (Firebase): the small white WORKLINE icon, brand colour and the main channel
+if (!x.includes('default_notification_icon'))
+  x = x.replace(/(<application\b[^>]*>)/, `$1
+        <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/ic_stat_wl" />
+        <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/wl_notif" />
+        <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="wl" />`);
+const cf = 'android/app/src/main/res/values/wl_colors.xml';
+fs.writeFileSync(cf, '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n    <color name="wl_notif">#5B5BFF</color>\n</resources>\n');
 fs.writeFileSync(f, x);
 console.log(x);

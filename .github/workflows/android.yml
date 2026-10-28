@@ -31,6 +31,8 @@ jobs:
           node scripts/prepare-www.js
           npx cap add android
           npx capacitor-assets generate --android --iconBackgroundColor '#ffffff' --iconBackgroundColorDark '#0e1020' --splashBackgroundColor '#ffffff' --splashBackgroundColorDark '#0e1020'
+          cp android-config/google-services.json android/app/google-services.json
+          for d in resources/notif/drawable-*; do mkdir -p android/app/src/main/res/$(basename $d); cp $d/*.png android/app/src/main/res/$(basename $d)/; done
           node scripts/patch-android.js
           npx cap sync android
 

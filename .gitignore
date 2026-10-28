@@ -3,4 +3,4 @@ android/
 *.keystore
 *.jks
 keystore*.properties
-google-services.json
+
