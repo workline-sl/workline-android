@@ -234,9 +234,12 @@ nav button svg{width:22px;height:22px}
 nav .plus{flex:none;margin:0 2px}
 @media print{body>*:not(#ov){display:none!important}.sheet{position:static;background:none}.sheet>div{max-height:none;overflow:visible;background:#fff;color:#000;padding:0}#rcpt{color:#000}.acts,.fix{display:none!important}}
 .tsug{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.tsug:empty{display:none}
-.cap:not(.open){content-visibility:auto;contain-intrinsic-size:auto 190px}
 button:active,.qact:active,.fchip:active{transform:scale(.97)}
 [hidden]{display:none!important}
+/* SPEED: no never-ending animations inside the listing cards (call-button pulse, twinkling stars, shine) —
+   with many cards they made phones redraw the screen non-stop, so parts of cards appeared late. The first card keeps a gentle pulse. */
+.call,.call svg,.star,.sh{animation:none}.cap:first-of-type .call{animation:pr 1.8s ease-out 3}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 /* avatar rings: still (not spinning) in lists — lighter for phones, and the photo always stays on top of the ring */
 .av i{animation:none}.av span,.pf .big span{z-index:1}.av .avdot{z-index:2}
 </style>
