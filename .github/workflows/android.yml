@@ -11,6 +11,10 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      WL_VC: ${{ github.run_number }}
+      WL_VN: 1.0.${{ github.run_number }}
+      WL_KEY: ${{ secrets.WL_UPLOAD_KEY_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
 
@@ -45,11 +49,23 @@ jobs:
       - name: Name the file
         run: cp android/app/build/outputs/apk/debug/app-debug.apk WORKLINE-test-${{ github.run_number }}.apk
 
+      - name: Play Store bundle (signed with the upload key)
+        if: env.WL_KEY != ''
+        run: |
+          openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in android-config/workline-upload.jks.enc -out $RUNNER_TEMP/up.jks -pass env:WL_KEY
+          export WL_KS=$RUNNER_TEMP/up.jks
+          cd android && ./gradlew bundleRelease --no-daemon
+          cd .. && cp android/app/build/outputs/bundle/release/app-release.aab WORKLINE-play-${{ github.run_number }}.aab
+          rm -f $RUNNER_TEMP/up.jks
+
       - name: Publish for download (Releases)
         uses: softprops/action-gh-release@v2
         with:
           tag_name: test-${{ github.run_number }}
           name: WORKLINE test ${{ github.run_number }}
           prerelease: true
-          body: Test build for phones (not for Play Store). Download the .apk on the phone and install.
-          files: WORKLINE-test-${{ github.run_number }}.apk
+          body: "Test build for phones: the .apk (install on a phone). Play Store: the .aab (version 1.0.${{ github.run_number }}, code ${{ github.run_number }})."
+          files: |
+            WORKLINE-test-${{ github.run_number }}.apk
+            WORKLINE-play-${{ github.run_number }}.aab
+          fail_on_unmatched_files: false

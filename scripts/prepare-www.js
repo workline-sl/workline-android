@@ -23,5 +23,7 @@ const rep = (re, s) => { const b = h; h = h.replace(re, s); if (h !== b) n++; el
 rep(/<link rel="stylesheet" href="https:\/\/fonts\.googleapis\.com\/css2[^"]*">/, '<link rel="stylesheet" href="vendor/fonts.css">');
 rep(/<link rel="preload" as="script" href="https:\/\/cdn\.jsdelivr\.net[^"]*">/, '');
 rep('</noscript>', '</noscript>\n<script src="vendor/supabase.js"></script>');
+// the app's own version number (the same as the Play Store versionCode) → "a newer version exists" check
+if (process.env.WL_VC) rep(/APP_BUILD:\s*1\b/, 'APP_BUILD:' + (+process.env.WL_VC));
 fs.writeFileSync(path.join(W, 'index.html'), h);
 console.log('www ready:', n, 'changes; fonts', FONTS.map(f => f[0]).join(', '));

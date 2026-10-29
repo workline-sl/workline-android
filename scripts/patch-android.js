@@ -26,5 +26,35 @@ if (!x.includes('default_notification_icon'))
         <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="wl" />`);
 const cf = 'android/app/src/main/res/values/wl_colors.xml';
 fs.writeFileSync(cf, '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n    <color name="wl_notif">#5B5BFF</color>\n</resources>\n');
+// no advertising ID: WORKLINE shows no ads and does no ad tracking (removes it if a library adds it)
+if (!x.includes('xmlns:tools')) x = x.replace('<manifest ', '<manifest xmlns:tools="http://schemas.android.com/tools" ');
+if (!x.includes('permission.AD_ID')) x = x.replace('</manifest>', '    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />\n</manifest>');
 fs.writeFileSync(f, x);
 console.log(x);
+// version + Play Store signing (the upload key comes from the encrypted file + the GitHub secret; never stored in plain text)
+const g = 'android/app/build.gradle';
+let gr = fs.readFileSync(g, 'utf8');
+if (!gr.includes('WL_VC')) gr += `
+android {
+    defaultConfig {
+        versionCode Integer.parseInt(System.getenv('WL_VC') ?: '1')
+        versionName System.getenv('WL_VN') ?: '1.0'
+    }
+    signingConfigs {
+        release {
+            if (System.getenv('WL_KS')) {
+                storeFile file(System.getenv('WL_KS'))
+                storePassword System.getenv('WL_KEY')
+                keyAlias 'workline'
+                keyPassword System.getenv('WL_KEY')
+            }
+        }
+    }
+    buildTypes {
+        release {
+            if (System.getenv('WL_KS')) signingConfig signingConfigs.release
+        }
+    }
+}
+`;
+fs.writeFileSync(g, gr);
